@@ -2,6 +2,7 @@ package com.example.demo.Service;
 
 import com.example.demo.Model.Users;
 import com.example.demo.Repository.UserRepository;
+import org.apache.catalina.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +30,13 @@ public class UserService {
     public Users getUserById(long id){
         return userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Kullanıcı Bulunamadı."));
+    }
+
+    public Users loginUser(String username, String password){
+        Users user = userRepository.findByUsername(username);
+        if (user == null || !passwordEncoder.matches(password,user.getPassword())){
+            throw new RuntimeException("Kullanıcı adı veya şifre yanlış!");
+        }
+        return user;
     }
 }

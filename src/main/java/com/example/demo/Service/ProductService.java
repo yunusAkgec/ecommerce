@@ -64,7 +64,7 @@ public class ProductService {
 
     public void deleteProduct(Long id){
         Product product = productRepository.findById(id).orElse(null);
-        if (product==null){
+        if (product!=null){
             productRepository.delete(product);
         }
     }

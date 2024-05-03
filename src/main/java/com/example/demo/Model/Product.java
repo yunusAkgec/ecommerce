@@ -17,6 +17,7 @@ public class Product {
     @Column(nullable = false)
     private double price;
 
+
     public Long getId() {
         return id;
     }

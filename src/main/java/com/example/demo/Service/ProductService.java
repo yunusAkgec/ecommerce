@@ -24,6 +24,7 @@ public class ProductService {
         productDTO.setPrice(product.getPrice());
         return productDTO;
     }
+
     private Product convertToEntity(ProductDTO productDTO) {
         Product product = new Product();
         product.setName(productDTO.getName());
@@ -32,27 +33,27 @@ public class ProductService {
         return product;
     }
 
-    public List<ProductDTO> getAllProducts(){
+    public List<ProductDTO> getAllProducts() {
         List<Product> products = productRepository.findAll();
         return products.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
 
-    public ProductDTO getProductById(Long id){
+    public ProductDTO getProductById(Long id) {
         Product product = productRepository.findById(id).orElse(null);
         return product != null ? convertToDto(product) : null;
     }
 
-    public ProductDTO createProduct(ProductDTO productDTO){
+    public ProductDTO createProduct(ProductDTO productDTO) {
         Product product = convertToEntity(productDTO);
         Product savedProduct = productRepository.save(product);
         return convertToDto(savedProduct);
     }
 
-    public ProductDTO updateProduct(Long id, ProductDTO productDTO){
+    public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
         Product product = productRepository.findById(id).orElse(null);
-        if (product ==null){
+        if (product == null) {
             return null;
         }
         product.setName(productDTO.getName());
@@ -62,9 +63,9 @@ public class ProductService {
         return convertToDto(updatedProduct);
     }
 
-    public void deleteProduct(Long id){
+    public void deleteProduct(Long id) {
         Product product = productRepository.findById(id).orElse(null);
-        if (product!=null){
+        if (product != null) {
             productRepository.delete(product);
         }
     }

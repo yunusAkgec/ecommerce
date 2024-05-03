@@ -16,8 +16,8 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Users registerUser(Users user){
-        if (userRepository.findByUsername(user.getUsername()) != null){
+    public Users registerUser(Users user) {
+        if (userRepository.findByUsername(user.getUsername()) != null) {
             throw new RuntimeException("Bu kullanıcı adı zaten kullanılmaktadır!");
         }
 
@@ -27,14 +27,14 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Users getUserById(long id){
+    public Users getUserById(long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Kullanıcı Bulunamadı."));
     }
 
-    public Users loginUser(String username, String password){
+    public Users loginUser(String username, String password) {
         Users user = userRepository.findByUsername(username);
-        if (user == null || !passwordEncoder.matches(password,user.getPassword())){
+        if (user == null || !passwordEncoder.matches(password, user.getPassword())) {
             throw new RuntimeException("Kullanıcı adı veya şifre yanlış!");
         }
         return user;

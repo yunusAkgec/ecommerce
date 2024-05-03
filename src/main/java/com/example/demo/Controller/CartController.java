@@ -18,28 +18,28 @@ public class CartController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<List<ProductCartDTO>> getUserCart(@PathVariable Long userId){
+    public ResponseEntity<List<ProductCartDTO>> getUserCart(@PathVariable Long userId) {
         List<ProductCartDTO> cart = cartService.getUserCart(userId);
         return ResponseEntity.ok(cart);
     }
 
     @PostMapping("/{productId}")
-    public ResponseEntity<ProductCartDTO> addToCart(@PathVariable Long productId, @RequestParam int quantity){
-        ProductCartDTO cartItem = cartService.addToCart(productId,quantity);
-        if (cartItem==null){
+    public ResponseEntity<ProductCartDTO> addToCart(@PathVariable Long productId, @RequestParam int quantity) {
+        ProductCartDTO cartItem = cartService.addToCart(productId, quantity);
+        if (cartItem == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(cartItem);
     }
 
     @DeleteMapping("/{cartItemId}")
-    public ResponseEntity<Void> removeFromCart(@PathVariable Long cartItemId){
+    public ResponseEntity<Void> removeFromCart(@PathVariable Long cartItemId) {
         cartService.removeFromCart(cartItemId);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/total/{userId}")
-    public ResponseEntity<Double> getTotalPrice(@PathVariable Long userId){
+    public ResponseEntity<Double> getTotalPrice(@PathVariable Long userId) {
         double totalPrice = cartService.getTotalPrice(userId);
         return ResponseEntity.ok(totalPrice);
     }

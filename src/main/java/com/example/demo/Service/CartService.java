@@ -30,7 +30,7 @@ public class CartService {
         return cartItemDTO;
     }
 
-    public List<ProductCartDTO> getUserCart(Long userId){
+    public List<ProductCartDTO> getUserCart(Long userId) {
         List<ProductCart> cartItems = productCartRepository.findAll();
         return cartItems.stream()
                 .map(this::convertToDto)

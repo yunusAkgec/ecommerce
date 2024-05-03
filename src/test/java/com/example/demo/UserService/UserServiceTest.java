@@ -26,12 +26,12 @@ public class UserServiceTest {
     private UserService userService;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testRegisterUser_UsernameIsUnique(){
+    public void testRegisterUser_UsernameIsUnique() {
         //Arrange
         Users user = new Users();
         user.setUsername("testuser");
@@ -46,15 +46,15 @@ public class UserServiceTest {
 
         //Assert
         assertNotNull(registeredUser);
-        assertEquals("testuser",registeredUser.getUsername());
-        assertEquals("encodedPassword",registeredUser.getPassword());
-        verify(userRepository,times(1)).findByUsername("testusername");
-        verify(passwordEncoder,times(1)).encode("password");
-        verify(userRepository,times(1)).save(user);
+        assertEquals("testuser", registeredUser.getUsername());
+        assertEquals("encodedPassword", registeredUser.getPassword());
+        verify(userRepository, times(1)).findByUsername("testusername");
+        verify(passwordEncoder, times(1)).encode("password");
+        verify(userRepository, times(1)).save(user);
     }
 
     @Test
-    public void testGetUserById_WhenUserExists(){
+    public void testGetUserById_WhenUserExists() {
         //Arrange
         Users user = new Users();
         user.setId(1L);
@@ -68,19 +68,19 @@ public class UserServiceTest {
 
         //Assert
         assertNotNull(fetchedUser);
-        assertEquals(1L,fetchedUser.getId());
-        assertEquals("testuser",fetchedUser.getUsername());
-        assertEquals("password",fetchedUser.getPassword());
-        verify(userRepository,times(1)).findById(1L);
+        assertEquals(1L, fetchedUser.getId());
+        assertEquals("testuser", fetchedUser.getUsername());
+        assertEquals("password", fetchedUser.getPassword());
+        verify(userRepository, times(1)).findById(1L);
     }
 
     @Test
-    public void testGetUserById_WhenUserDoesNotExists(){
+    public void testGetUserById_WhenUserDoesNotExists() {
         when(userRepository.findById(1L)).thenReturn(Optional.empty());
 
         //Act & Assert
-        assertThrows(RuntimeException.class,()-> userService.getUserById(1L));
-        verify(userRepository,times(1)).findById(1L);
+        assertThrows(RuntimeException.class, () -> userService.getUserById(1L));
+        verify(userRepository, times(1)).findById(1L);
     }
 
 }

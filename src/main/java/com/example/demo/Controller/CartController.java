@@ -23,7 +23,7 @@ public class CartController {
         return ResponseEntity.ok(cart);
     }
 
-    @PostMapping("/{productId")
+    @PostMapping("/{productId}")
     public ResponseEntity<ProductCartDTO> addToCart(@PathVariable Long productId, @RequestParam int quantity){
         ProductCartDTO cartItem = cartService.addToCart(productId,quantity);
         if (cartItem==null){
